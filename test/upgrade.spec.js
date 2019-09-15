@@ -54,7 +54,7 @@ describe('JHipster upgrade generator', function() {
                         })
                         .inTmpDir(() => {
                             /* eslint-disable-next-line no-console */
-                            console.log('Upgrading the JHipster application');
+                            console.log(`Upgrading the JHipster application in dir ${workingDirectory}`);
                             process.chdir(workingDirectory);
                         })
                         .on('end', done);
