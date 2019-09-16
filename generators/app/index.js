@@ -547,6 +547,8 @@ module.exports = class extends BaseGenerator {
                                             // eslint-disable-next-line
                                             console.log('commit files');
                                             this.gitExec(`commit -m "${commitMsg}" -- .`, { trace: false }, code => {
+                                                // eslint-disable-next-line
+                                                console.log(`committed files code  ${code}`);
                                                 if (code === 0) {
                                                     this.log(
                                                         chalk.green.bold(`Application successfully committed to Git from ${process.cwd()}.`)
