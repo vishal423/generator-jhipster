@@ -518,13 +518,20 @@ module.exports = class extends BaseGenerator {
     get end() {
         return {
             gitCommit() {
+                // eslint-disable-next-line
+                console.log('commit to git repo');
                 if (!this.options['skip-git']) {
                     this.debug('Committing files to git');
                     const done = this.async();
+
                     this.isGitInstalled(code => {
+                        // eslint-disable-next-line
+                        console.log('git is installed');
                         if (code === 0 && this.gitInitialized) {
                             this.gitExec('log --oneline -n 1 -- .', { trace: false }, (code, commits) => {
                                 if (code !== 0 || !commits || !commits.trim()) {
+                                    // eslint-disable-next-line
+                                    console.log('fresh installation. add files');
                                     // if no files in Git from current folder then we assume that this is initial application generation
                                     this.gitExec('add .', { trace: false }, code => {
                                         if (code === 0) {
@@ -537,6 +544,8 @@ module.exports = class extends BaseGenerator {
                                                     .join(', ');
                                                 commitMsg += ` with blueprints: ${bpInfo}`;
                                             }
+                                            // eslint-disable-next-line
+                                            console.log('commit files');
                                             this.gitExec(`commit -m "${commitMsg}" -- .`, { trace: false }, code => {
                                                 if (code === 0) {
                                                     this.log(
@@ -549,6 +558,8 @@ module.exports = class extends BaseGenerator {
                                                         )
                                                     );
                                                 }
+                                                // eslint-disable-next-line
+                                                console.log('committed files');
                                                 done();
                                             });
                                         } else {
@@ -565,6 +576,8 @@ module.exports = class extends BaseGenerator {
                                     // if there are changes in current folder then inform user about manual commit needed
                                     this.gitExec('diff --name-only .', { trace: false }, (code, diffs) => {
                                         if (code === 0 && diffs && diffs.trim()) {
+                                            // eslint-disable-next-line
+                                            console.log(`not committed. diff ${diffs}`);
                                             this.log(
                                                 `Found commits in Git from ${process.cwd()}. So we assume this is application regeneration. Therefore automatic Git commit is not done. You can do Git commit manually.`
                                             );

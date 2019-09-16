@@ -296,6 +296,8 @@ module.exports = class extends BaseGenerator {
                         if (code !== 0) this.error(`Unable to initialize a new Git repository:\n${msg} ${err}`);
                         this.success('Initialized a new Git repository');
                         this._gitCommitAll('Initial', () => {
+                            // eslint-disable-next-line
+                            console.log('Git changes committed');
                             done();
                         });
                     });
@@ -303,6 +305,8 @@ module.exports = class extends BaseGenerator {
                 this.gitExec(['rev-parse', '-q', '--is-inside-work-tree'], { silent: this.silent }, (code, msg, err) => {
                     if (code !== 0) gitInit();
                     else {
+                        // eslint-disable-next-line
+                        console.log('Git repository detected');
                         this.success('Git repository detected');
                         done();
                     }
