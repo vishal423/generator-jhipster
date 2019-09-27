@@ -19,6 +19,6 @@ jobs:
                 env:
                     JHI_SCRIPTS: ./test-integration/scripts
                 run: $JHI_SCRIPTS/04-git-config.sh
-              shell: bash
+                shell: bash
             - run: npm ci
             - run: npm test
