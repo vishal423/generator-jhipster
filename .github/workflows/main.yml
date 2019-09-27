@@ -26,7 +26,7 @@ jobs:
                 JHI_DISABLE_WEBPACK_LOGS: true
                 JHI_E2E_HEADLESS: true
                 JHI_SCRIPTS: ./test-integration/scripts
-                NG_CLI_ANALYTICS: false
+                NG_CLI_ANALYTICS: 'false'
             - uses: actions/checkout@v1
             - uses: actions/setup-node@v1
               with:
