@@ -17,15 +17,21 @@ env:
     NG_CLI_ANALYTICS: 'false'
 jobs:
     applications:
-        name: ngx-session-cassandra-fr test suite
-        env:
-            JHI_ENTITY: cassandra
-            JHI_APP: ngx-session-cassandra-fr
+        name: {{ matrix.app-type }} test suite
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
                 node_version: [10.x]
                 os: [ubuntu-latest]
+                app-type: [ngx-session-cassandra-fr, ngx-mongodb-kafka-cucumber]
+                include:
+                    - app-type: ngx-session-cassandra-fr
+                      entity: cassandra
+                    - app-type: ngx-mongodb-kafka-cucumber
+                      entity: mongodb
+        env:
+            JHI_ENTITY: {{ matrix.entity }}
+            JHI_APP: {{ matrix.app-type }}
         steps:
             - uses: actions/checkout@v1
             - uses: actions/setup-node@v1
