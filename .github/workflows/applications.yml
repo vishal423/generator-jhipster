@@ -17,7 +17,7 @@ env:
     NG_CLI_ANALYTICS: 'false'
 jobs:
     applications:
-        name: {{ matrix.app-type }} test suite
+        name: generated application
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
