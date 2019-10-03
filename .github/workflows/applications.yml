@@ -23,15 +23,25 @@ jobs:
             matrix:
                 node_version: [10.x]
                 os: [ubuntu-latest]
-                app-type: [ngx-session-cassandra-fr, ngx-mongodb-kafka-cucumber]
+                app-type: [ngx-session-cassandra-fr, ngx-mongodb-kafka-cucumber, ms-micro-consul, ngx-couchbase, ms-micro-eureka]
                 include:
                     - app-type: ngx-session-cassandra-fr
                       entity: cassandra
                     - app-type: ngx-mongodb-kafka-cucumber
                       entity: mongodb
+                    - app-type: ms-micro-consul
+                      entity: micro
+                    - app-type: ngx-couchbase
+                      entity: couchbase
+                      profile: prod
+                    - app-type: ms-micro-eureka
+                      entity: micro
+                      war: 1
         env:
             JHI_ENTITY: ${{ matrix.entity }}
             JHI_APP: ${{ matrix.app-type }}
+            JHI_PROFILE: ${{ matrix.profile }}
+            JHI_WAR: ${{ matrix.war }}
         steps:
             - uses: actions/checkout@v1
             - uses: actions/setup-node@v1
