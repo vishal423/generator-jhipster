@@ -17,7 +17,7 @@ env:
     NG_CLI_ANALYTICS: 'false'
 jobs:
     applications:
-        name: generated application
+        name: ${{ matrix.app-type }} application test suite
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
@@ -30,8 +30,8 @@ jobs:
                     - app-type: ngx-mongodb-kafka-cucumber
                       entity: mongodb
         env:
-            JHI_ENTITY: {{ matrix.entity }}
-            JHI_APP: {{ matrix.app-type }}
+            JHI_ENTITY: ${{ matrix.entity }}
+            JHI_APP: ${{ matrix.app-type }}
         steps:
             - uses: actions/checkout@v1
             - uses: actions/setup-node@v1
