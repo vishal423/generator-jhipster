@@ -1,7 +1,6 @@
 name: Generated Applications CI
 on: [push, pull_request]
 env:
-    JHI_PROFILE: dev
     JHI_RUN_APP: 1
     JHI_PROTRACTOR: 0
     JHI_JDK: 11
@@ -20,23 +19,24 @@ jobs:
         name: ${{ matrix.app-type }} application test suite
         runs-on: ${{ matrix.os }}
         strategy:
+            fail-fast: false
             matrix:
                 node_version: [10.x]
                 os: [ubuntu-latest]
-                app-type: [ngx-session-cassandra-fr, ngx-mongodb-kafka-cucumber, ms-micro-consul, ngx-couchbase, ms-micro-eureka]
+                app-type: [ngx-session-cassandra-fr, ngx-mongodb-kafka-cucumber, ms-micro-consul, ngx-couchbase]
                 include:
                     - app-type: ngx-session-cassandra-fr
                       entity: cassandra
+                      profile: dev
                     - app-type: ngx-mongodb-kafka-cucumber
                       entity: mongodb
+                      profile: dev
                     - app-type: ms-micro-consul
                       entity: micro
+                      profile: dev
                     - app-type: ngx-couchbase
                       entity: couchbase
                       profile: prod
-                    - app-type: ms-micro-eureka
-                      entity: micro
-                      war: 1
         env:
             JHI_ENTITY: ${{ matrix.entity }}
             JHI_APP: ${{ matrix.app-type }}
