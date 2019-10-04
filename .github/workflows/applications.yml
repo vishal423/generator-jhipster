@@ -23,16 +23,13 @@ jobs:
             matrix:
                 node_version: [10.x]
                 os: [ubuntu-latest]
-                app-type: [ngx-session-cassandra-fr, ngx-mongodb-kafka-cucumber, ms-micro-consul, ngx-couchbase]
+                app-type: [ngx-session-cassandra-fr, ngx-mongodb-kafka-cucumber, ngx-couchbase]
                 include:
                     - app-type: ngx-session-cassandra-fr
                       entity: cassandra
                       profile: dev
                     - app-type: ngx-mongodb-kafka-cucumber
                       entity: mongodb
-                      profile: dev
-                    - app-type: ms-micro-consul
-                      entity: micro
                       profile: dev
                     - app-type: ngx-couchbase
                       entity: couchbase
@@ -47,6 +44,9 @@ jobs:
             - uses: actions/setup-node@v1
               with:
                   node-version: ${{ matrix.node_version }}
+            - uses: actions/setup-java@v1
+              with:
+                  java-version: '11.0.3'
             - name: Config git variables
               run: $JHI_SCRIPTS/04-git-config.sh
             - name: Install Jhipster
