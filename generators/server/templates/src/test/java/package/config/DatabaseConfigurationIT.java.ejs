@@ -31,12 +31,13 @@ import org.springframework.data.couchbase.config.BeanNames;
 import org.springframework.data.couchbase.config.CouchbaseConfigurer;
 import org.testcontainers.couchbase.CouchbaseContainer;
 
+import java.time.Duration;
 import java.util.List;
 
 @Configuration
 public class DatabaseConfigurationIT extends AbstractCouchbaseConfiguration {
 
-    private CouchbaseProperties couchbaseProperties;
+    private final CouchbaseProperties couchbaseProperties;
 
     private static CouchbaseContainer couchbaseContainer;
 
@@ -75,12 +76,13 @@ public class DatabaseConfigurationIT extends AbstractCouchbaseConfiguration {
         return this;
     }
 
-    private CouchbaseContainer getCouchbaseContainer() {
+    private synchronized CouchbaseContainer getCouchbaseContainer() {
         if (couchbaseContainer != null) {
             return couchbaseContainer;
         }
         couchbaseContainer = new CouchbaseContainer("<%= DOCKER_COUCHBASE %>");
         couchbaseContainer
+            .withStartupTimeout(Duration.ofMinutes(3))
             .withNewBucket(DefaultBucketSettings.builder()
                 .name(getBucketName())
                 .password(getBucketPassword())
