@@ -95,7 +95,7 @@ public class DatabaseConfigurationIT extends AbstractCouchbaseConfiguration {
                 .build());
         couchbaseContainer.start();
         Slf4jLogConsumer logConsumer = new Slf4jLogConsumer(LOGGER);
-        couchbaseContainer.followOutput(logConsumer, OutputFrame.OutputType.STDOUT);
+        couchbaseContainer.followOutput(logConsumer);
         return couchbaseContainer;
     }
 }
