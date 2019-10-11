@@ -46,4 +46,5 @@ fi
 # set correct OpenJDK version
 if [[ "$JHI_JDK" == "11" ]]; then
     JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+    echo $JAVA_HOME
 fi
