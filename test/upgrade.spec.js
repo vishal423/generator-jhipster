@@ -134,6 +134,7 @@ describe('JHipster upgrade generator', function() {
                             'from-cli': true,
                             force: true,
                             silent: false,
+                            skipChecks: true,
                             'target-version': packageJson.version
                         })
                         .inTmpDir(() => {
