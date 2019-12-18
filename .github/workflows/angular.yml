@@ -161,14 +161,14 @@ jobs:
         if: matrix.buildTool == 'gradle'
         with:
             path: ~/.gradle/caches
-            key: ${{ runner.os }}-gradle-${{ hashFiles('$HOME/app/build.gradle') }}
+            key: ${{ runner.os }}-gradle-${{ hashFiles('app/**/*.gradle') }}
             restore-keys: |
                 ${{ runner.os }}-gradle-
       - uses: actions/cache@v1
         if: matrix.buildTool ==  'maven'
         with:
             path: ~/.m2/repository
-            key: ${{ runner.os }}-maven-${{ hashFiles('$HOME/app/pom.xml') }}
+            key: ${{ runner.os }}-maven-${{ hashFiles('app/**/pom.xml'') }}
             restore-keys: |
                  ${{ runner.os }}-maven-
       - name: 'TESTS: Start docker-compose containers'
