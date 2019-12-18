@@ -168,7 +168,7 @@ jobs:
         if: matrix.buildTool ==  'maven'
         with:
             path: ~/.m2/repository
-            key: ${{ runner.os }}-maven-${{ hashFiles('app/**/pom.xml'') }}
+            key: ${{ runner.os }}-maven-${{ hashFiles('app/**/pom.xml') }}
             restore-keys: |
                  ${{ runner.os }}-maven-
       - name: 'TESTS: Start docker-compose containers'
