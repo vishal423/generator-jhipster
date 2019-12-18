@@ -114,7 +114,7 @@ jobs:
       JHI_PROTRACTOR: ${{ matrix.protractor }}
     steps:
       #----------------------------------------------------------------------
-      # Install all tools and check configuration
+      # Install all tools, configure caches and check configuration
       #----------------------------------------------------------------------
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -127,6 +127,18 @@ jobs:
       - uses: actions/setup-java@v1
         with:
             java-version: '11.x'
+      - uses: actions/cache@v1
+        with:
+            path: ~/.gradle/caches
+            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+            restore-keys: |
+                ${{ runner.os }}-gradle-
+      - uses: actions/cache@v1
+        with:
+            path: ~/.m2/repository
+            key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+            restore-keys: |
+                 ${{ runner.os }}-maven-
       - name: 'TOOLS: configure tools installed by the system'
         run: $JHI_SCRIPTS/03-system.sh
       - name: 'TOOLS: configure git'
