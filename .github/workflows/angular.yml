@@ -137,20 +137,6 @@ jobs:
       - uses: actions/setup-java@v1
         with:
             java-version: '11.x'
-      - uses: actions/cache@v1
-        if: matrix.buildTool == 'gradle'
-        with:
-            path: ~/.gradle/caches
-            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-            restore-keys: |
-                ${{ runner.os }}-gradle-
-      - uses: actions/cache@v1
-        if: matrix.buildTool ==  'maven'
-        with:
-            path: ~/.m2/repository
-            key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-            restore-keys: |
-                 ${{ runner.os }}-maven-
       - name: 'TOOLS: configure tools installed by the system'
         run: $JHI_SCRIPTS/03-system.sh
       - name: 'TOOLS: configure git'
@@ -171,6 +157,20 @@ jobs:
       #----------------------------------------------------------------------
       # Launch tests
       #----------------------------------------------------------------------
+      - uses: actions/cache@v1
+        if: matrix.buildTool == 'gradle'
+        with:
+            path: ~/.gradle/caches
+            key: ${{ runner.os }}-gradle-${{ hashFiles('$HOME/app/build.gradle') }}
+            restore-keys: |
+                ${{ runner.os }}-gradle-
+      - uses: actions/cache@v1
+        if: matrix.buildTool ==  'maven'
+        with:
+            path: ~/.m2/repository
+            key: ${{ runner.os }}-maven-${{ hashFiles('$HOME/app/pom.xml') }}
+            restore-keys: |
+                 ${{ runner.os }}-maven-
       - name: 'TESTS: Start docker-compose containers'
         run: $JHI_SCRIPTS/20-docker-compose.sh
       - name: 'TESTS: backend'
