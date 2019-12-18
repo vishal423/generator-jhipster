@@ -61,51 +61,61 @@ jobs:
             profile: prod
             war: 0
             protractor: 1
+            buildTool: maven
           - app-type: ngx-psql-es-noi18n-mapsid
             entity: sqlfull
             profile: prod
             war: 0
             protractor: 1
+            buildTool: maven
           - app-type: ngx-mariadb-oauth2-infinispan
             entity: sql
             profile: prod
             war: 0
             protractor: 1
+            buildTool: maven
           - app-type: ngx-mongodb-kafka-cucumber
             entity: mongodb
             profile: dev
             war: 0
             protractor: 1
+            buildTool: maven
           - app-type: ngx-h2mem-ws-nol2
             entity: sql
             profile: dev
             war: 0 # TODO: need change to 1, when maven+war is fixed
             protractor: 1
+            buildTool: maven
           - app-type: ngx-gradle-fr
             entity: sql
             profile: prod
             war: 0
             protractor: 1
+            buildTool: gradle
           - app-type: ngx-gradle-psql-es-noi18n-mapsid
             entity: sqlfull
             profile: prod
             war: 0
             protractor: 1
+            buildTool: gradle
           - app-type: ngx-gradle-mariadb-oauth2-infinispan
             entity: sql
             profile: prod
             war: 0
             protractor: 1
+            buildTool: gradle
           - app-type: ngx-gradle-mongodb-kafka-cucumber
             entity: mongodb
             profile: prod
             war: 0
             protractor: 1
+            buildTool: gradle
           - app-type: ngx-gradle-yarn-h2disk-ws-nocache
             entity: sql
             profile: dev
             war: 1
             protractor: 1
+            buildTool: gradle
     env:
       JHI_ENTITY: ${{ matrix.entity }}
       JHI_APP: ${{ matrix.app-type }}
@@ -128,12 +138,14 @@ jobs:
         with:
             java-version: '11.x'
       - uses: actions/cache@v1
+        if: matrix.buildTool == 'gradle'
         with:
             path: ~/.gradle/caches
             key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
             restore-keys: |
                 ${{ runner.os }}-gradle-
       - uses: actions/cache@v1
+        if: matrix.buildTool ==  'maven'
         with:
             path: ~/.m2/repository
             key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
