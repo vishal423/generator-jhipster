@@ -20,7 +20,8 @@ import {ElementFinder, by, element} from 'protractor';
 
 export default class AlertPage {
 
- successAlert: ElementFinder = element(by.css('div.Toastify__toast--success.toastify-toast'));
- dangerAlert: ElementFinder = element(by.css('div.Toastify__toast--error.toastify-toast'));
- closeAlertBtn: ElementFinder = element(by.css('button.Toastify__close-button'));
+    private root: ElementFinder = element(by.css('#root  div.app-container  div.toastify-container'));
+    successAlert: ElementFinder = this.root.element(by.css('div.toastify-toast.Toastify__toast--success'));
+    dangerAlert: ElementFinder = this.root.element(by.css('div.toastify-toast.Toastify__toast--error'));
+    closeAlertBtn: ElementFinder = this.root.element(by.css('div.toastify-toast button'));
 }
