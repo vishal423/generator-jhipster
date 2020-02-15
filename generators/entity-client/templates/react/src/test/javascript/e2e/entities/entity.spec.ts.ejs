@@ -174,7 +174,7 @@ describe('<%= entityClass %> e2e test', () => {
 
         await waitUntilDisplayed(<%= entityInstance %>ComponentsPage.successAlert);
         expect(await <%= entityInstance %>ComponentsPage.successAlert.isDisplayed()).to.be.true;
-        await <%= entityInstance %>ComponentsPage.closeAlertBtn.click();
+        await click(<%= entityInstance %>ComponentsPage.closeAlertBtn);
         await waitUntilHidden(<%= entityInstance %>ComponentsPage.successAlert);
 
         expect(await <%= entityInstance %>ComponentsPage.createButton.isEnabled()).to.be.true;
@@ -201,7 +201,7 @@ describe('<%= entityClass %> e2e test', () => {
 
         await waitUntilDisplayed(<%= entityInstance %>ComponentsPage.successAlert);
         expect(await <%= entityInstance %>ComponentsPage.successAlert.isDisplayed()).to.be.true;
-        await <%= entityInstance %>ComponentsPage.closeAlertBtn.click();
+        await click(<%= entityInstance %>ComponentsPage.closeAlertBtn);
         await waitUntilHidden(<%= entityInstance %>ComponentsPage.successAlert);
 
         await waitUntilAnyDisplayed([<%= entityInstance %>ComponentsPage.noRecords,
