@@ -172,6 +172,10 @@ describe('<%= entityClass %> e2e test', () => {
         await waitUntilHidden(<%= entityInstance %>UpdatePage.saveButton);
         expect(await isVisible(<%= entityInstance %>UpdatePage.saveButton)).to.be.false;
 
+        await waitUntilDisplayed(<%= entityInstance %>ComponentsPage.successAlert);
+        expect(await <%= entityInstance %>ComponentsPage.successAlert.isDisplayed()).to.be.true;
+        await waitUntilHidden(<%= entityInstance %>ComponentsPage.successAlert);
+
         expect(await <%= entityInstance %>ComponentsPage.createButton.isEnabled()).to.be.true;
 
         await waitUntilDisplayed(<%= entityInstance %>ComponentsPage.table);
@@ -193,6 +197,10 @@ describe('<%= entityClass %> e2e test', () => {
         await waitUntilHidden(<%= entityInstance %>DeleteDialog.deleteModal);
 
         expect(await isVisible(<%= entityInstance %>DeleteDialog.deleteModal)).to.be.false;
+
+        await waitUntilDisplayed(<%= entityInstance %>ComponentsPage.successAlert);
+        expect(await <%= entityInstance %>ComponentsPage.successAlert.isDisplayed()).to.be.true;
+        await waitUntilHidden(<%= entityInstance %>ComponentsPage.successAlert);
 
         await waitUntilAnyDisplayed([<%= entityInstance %>ComponentsPage.noRecords,
         <%= entityInstance %>ComponentsPage.table]);
