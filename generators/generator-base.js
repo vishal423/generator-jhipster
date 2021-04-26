@@ -47,6 +47,7 @@ const SERVER_MAIN_RES_DIR = constants.SERVER_MAIN_RES_DIR;
 const ANGULAR = constants.SUPPORTED_CLIENT_FRAMEWORKS.ANGULAR;
 const REACT = constants.SUPPORTED_CLIENT_FRAMEWORKS.REACT;
 const VUE = constants.SUPPORTED_CLIENT_FRAMEWORKS.VUE;
+const SVELTE = constants.SUPPORTED_CLIENT_FRAMEWORKS.SVELTE;
 
 const { ORACLE, MYSQL, POSTGRESQL, MARIADB, MSSQL, SQL, MONGODB, COUCHBASE, NEO4J, CASSANDRA, H2_MEMORY, H2_DISK } = databaseTypes;
 const NO_DATABASE = databaseTypes.NO;
@@ -284,6 +285,8 @@ module.exports = class JHipsterBaseGenerator extends PrivateBase {
       prettierExtensions = `${prettierExtensions},js,ts,tsx,css,scss`;
       if (this.jhipsterConfig.clientFramework === VUE) {
         prettierExtensions = `${prettierExtensions},vue`;
+      } else if (this.jhipsterConfig.clientFramework === SVELTE) {
+        prettierExtensions = `${prettierExtensions},svelte`;
       }
     }
     if (!this.skipServer && !this.jhipsterConfig.skipServer) {

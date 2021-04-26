@@ -34,6 +34,7 @@ const { prepareEntityForTemplates, prepareEntityPrimaryKeyForTemplates, loadRequ
 const { prepareFieldForTemplates } = require('../../utils/field');
 const { OAUTH2 } = require('../../jdl/jhipster/authentication-types');
 const { SQL } = require('../../jdl/jhipster/database-types');
+const { SVELTE } = require('../../jdl/jhipster/client-framework-types');
 const { CommonDBTypes } = require('../../jdl/jhipster/field-types');
 
 const { STRING: TYPE_STRING, LONG: TYPE_LONG } = CommonDBTypes;
@@ -166,7 +167,11 @@ module.exports = class extends BaseGenerator {
       }
 
       if (!this.options.skipPrettier) {
-        const prettierOptions = { packageJson: true, java: !this.skipServer && !this.jhipsterConfig.skipServer };
+        const prettierOptions = {
+          packageJson: true,
+          java: !this.skipServer && !this.jhipsterConfig.skipServer,
+          svelte: !this.skipClient && this.jhipsterConfig.clientFramework === SVELTE,
+        };
         // Prettier is clever, it uses correct rules and correct parser according to file extension.
         const filterPatternForPrettier = `{,.,**/,.jhipster/**/}*.{${this.getPrettierExtensions()}}`;
         // docker-compose modifies .yo-rc.json from others folder, match them all.

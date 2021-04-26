@@ -21,6 +21,7 @@ const through = require('through2');
 const prettier = require('prettier');
 const prettierPluginJava = require('prettier-plugin-java');
 const prettierPluginPackagejson = require('prettier-plugin-packagejson');
+const prettierPluginSvelte = require('prettier-plugin-svelte');
 
 const prettierTransform = function (options, generator, ignoreErrors = false) {
   return through.obj((file, encoding, callback) => {
@@ -45,6 +46,9 @@ const prettierTransform = function (options, generator, ignoreErrors = false) {
         }
         if (options.java) {
           prettierOptions.plugins.push(prettierPluginJava);
+        }
+        if (options.svelte) {
+            prettierOptions.plugins.push(prettierPluginSvelte);
         }
         fileContent = file.contents.toString('utf8');
         const data = prettier.format(fileContent, prettierOptions);
